@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+group = 'cajanegra2'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    karateVersion = '1.4.1'
+}
+
+dependencies {
+    testImplementation "com.intuit.karate:karate-junit5:${karateVersion}"
+    testImplementation "ch.qos.logback:logback-classic:1.5.6"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Karate busca los .feature/.js/.xml dentro de src/test/java (junto a los runners),
+// no en src/test/resources, así que hay que sumarlo como carpeta de resources.
+sourceSets {
+    test {
+        resources {
+            srcDir file('src/test/java')
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'karate.output.dir', 'target/'
+    systemProperty "karate.options", System.getProperty("karate.options")
+
+}
