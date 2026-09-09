@@ -8,7 +8,7 @@ Feature: Yo como tester quiero probar la funcionalidad de interruptor inteligent
     Then status 200
     * print 'Estado actual del interruptor:', response.state
 
-  @smokeTest
+  @smoketest
   Scenario: Verificar que el interruptor acepta solicitudes
     Given url 'https://statemachine--maria7221.replit.app/api/'
     And path 'switch/state'
